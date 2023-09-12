@@ -13,4 +13,10 @@ class mainTest(TestCase):
         response = Client().get('/non_existent_url/')
         self.assertEqual(response.status_code, 404)
 
+    def test_main_contains_specific_data(self):
+        response = Client().get('/main/')
+        self.assertContains(response, 'Toko Buah Nazkya')
+
+
+
     
