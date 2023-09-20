@@ -23,16 +23,16 @@ JSON sering digunakan dalam pertukaran data antara aplikasi web modern karena me
 
 SS POSTMAN
 1. HTML
-![html](postman-html)
+![html](postman-html.png)
 
 2. XML
-![xml](postman-xml)
+![xml](postman-xml.png)
 
 3. JSON
-![json](postman-json)
+![json](postman-json.png)
 
 4. XML BY ID
-![xml-id](postman-xml-id)
+![xml-id](postman-xml-id.png)
 
 5. JSON BY ID
-![json-id](postman-json-id)
+![json-id](postman-json-id.png)
