@@ -1,0 +1,10 @@
+/* Memberikan warna latar belakang pada baris terakhir */
+.last-row {
+    background-color: #FFC0CB; /* Ganti dengan warna yang Anda inginkan */
+}
+
+/* Memberikan warna teks pada baris terakhir */
+.last-row td {
+    color: #d61616; /* Ganti dengan warna teks yang Anda inginkan */
+}
+

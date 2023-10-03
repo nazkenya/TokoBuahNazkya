@@ -1,52 +1,98 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table th, table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .item-card {
+        margin-bottom: 20px;
+    }
+
+    .item-card-header {
+        background-color: #FFC0CB;
+        color: #FFFFFF;
+    }
+
+    .last-item-card {
+        background-color: #f9dbdd;
+        color: #000000;
+    }
+
+</style>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navigation Bar Toko Buah Nazkya</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">{{name}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'main:logout' %}">Logout</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Options
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'main:create_item' %}">Add New Item</a></li>
+              <li><a class="dropdown-item" href="{% url 'main:clear_item' %}">Clear All Item</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+</nav>
+
     <h1>Toko Buah Nazkya</h1>
-
     <h5>Name:</h5>
-    <p>{{name}}</p>
-
+    <p>{{ name }}</p>
     <h5>Class:</h5>
-    <p>{{class}}</p>
+    <p>{{ class }}</p>
 
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Amount</th>
-        <th>Price</th>
-        <th>Description</th>
-        <th>Category</th>
-        <th>Date Added</th>
-    </tr>
+    <div class="row">
+        {% for item in items %}
+        <div class="col-md-4">
+            <div class="card item-card {% if forloop.last %}last-item-card{% endif %}">
+                <div class="card-header item-card-header">
+                    {{ forloop.counter }}. {{ item.name }}
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Amount: {{ item.amount }}</p>
+                    <p class="card-text">Price: {{ item.price }}</p>
+                    <p class="card-text">Description: {{ item.description }}</p>
+                    <p class="card-text">Category: {{ item.category }}</p>
+                    <p class="card-text">Date Added: {{ item.date_added }}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'main:edit_item' item.pk %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'main:delete_item' item.pk %}" class="btn btn-danger">Delete</a>
+                    <a href="{% url 'main:increase_amount' item.pk %}" class="btn btn-success">Add one</a>
+                    <a href="{% url 'main:decrease_amount' item.pk %}" class="btn btn-warning">Remove one</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 
-    {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+    <br />
 
-    {% for item in items %}
-        <tr>
-            <td>{{item.name}}</td>
-            <td>{{item.amount}}</td>
-            <td>{{item.price}}</td>
-            <td>{{item.description}}</td>
-            <td>{{item.category}}</td>
-            <td>{{item.date_added}}</td>
-        </tr>
-    {% endfor %}
-</table>
+    <a href="{% url 'main:create_item' %}" class="btn btn-primary">Add New Product</a>
+    <a href="{% url 'main:logout' %}" class="btn btn-danger">Logout</a>
+    <h5>Sesi terakhir login: {{ last_login }}</h5>
 
-<br />
-
-<a href="{% url 'main:create_product' %}">
-    <button>
-        Add New Product
-    </button>
-</a>
-
-
-<a href="{% url 'main:logout' %}">
-    <button>
-        Logout
-    </button>
-</a>
-<h5>Sesi terakhir login: {{ last_login }}</h5>
-
-{% endblock content %}
+    {% endblock content %}

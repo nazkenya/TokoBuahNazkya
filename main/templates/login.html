@@ -6,28 +6,24 @@
 
 {% block content %}
 
-<div class = "login">
-
+<div class="login-container">
     <h1>Login Toko Buah Nazkya</h1>
 
     <form method="POST" action="">
         {% csrf_token %}
-        <table>
-            <tr>
-                <td>Username: </td>
-                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
-            </tr>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" placeholder="Username" class="form-control">
+        </div>
                     
-            <tr>
-                <td>Password: </td>
-                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
-            </tr>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" placeholder="Password" class="form-control">
+        </div>
 
-            <tr>
-                <td></td>
-                <td><input class="btn login_btn" type="submit" value="Login"></td>
-            </tr>
-        </table>
+        <div class="form-group">
+            <input class="btn login-btn" type="submit" value="Login">
+        </div>
     </form>
 
     {% if messages %}
@@ -38,8 +34,69 @@
         </ul>
     {% endif %}     
         
-    Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
-
+    <p>Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a></p>
 </div>
+
+<style>
+    .login-container {
+    width: 300px;
+    height: 500px; 
+    margin: auto;
+    margin-top: 10%; 
+    padding: 20px;
+    background-color: rgb(240, 240, 240);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    }
+
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .login-btn {
+        background-color: #f2bedd;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .login-btn:hover {
+        background-color: #f2bedd;
+    }
+
+    p {
+        margin-top: 20px;
+    }
+
+    a {
+        text-decoration: none;
+        color:  #f2bedd;
+        font-weight: bold;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
 
 {% endblock content %}

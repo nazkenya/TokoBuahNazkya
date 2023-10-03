@@ -1,0 +1,91 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-container">
+    <h1 class="heading">Add New Item</h1>
+
+    <form method="POST" class="form">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Add Item" class="button"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<style>
+    .form-container {
+        width: 550px;
+        margin: 0 auto;
+        margin-top: 7%;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .heading {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #fbc0d6;
+        text-shadow: 5px 3px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .cute-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button {
+        background-color: #ffd7e6;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1); 
+    }
+
+    .button:hover {
+        background-color: #ffd7e6;
+    }
+
+    /* Additional cute styling */
+    body {
+        background-color: #ffd7e6; 
+    }
+
+    .form-container::before {
+        content: "🍓";
+        font-size: 40px;
+        margin-bottom: 10px;
+        display: block;
+        animation: bounce 1s ease infinite; /* Add animation here */
+    }
+
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-10px);
+        }
+        60% {
+            transform: translateY(-5px);
+        }
+    }
+</style>
+{% endblock %}
+

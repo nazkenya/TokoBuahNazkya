@@ -1,7 +1,10 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+
+{% load static %}
 
 {% block content %}
-<h1>Add New Product</h1>
+
+<h1>Edit Item</h1>
 
 <form method="POST">
     {% csrf_token %}
@@ -10,7 +13,7 @@
         <tr>
             <td></td>
             <td>
-                <input type="submit" value="Add Product"/>
+                <input type="submit" value="Edit Item"/>
             </td>
         </tr>
     </table>

@@ -1,34 +1,78 @@
+
 {% extends 'base.html' %}
 
 {% block meta %}
     <title>Register Toko Buah Nazkya</title>
 {% endblock meta %}
 
-{% block content %}  
+{% block content %}
 
-<div class = "login">
-    
-    <h1>Register</h1>  
 
-        <form method="POST" >  
-            {% csrf_token %}  
-            <table>  
-                {{ form.as_table }}  
-                <tr>  
-                    <td></td>
-                    <td><input type="submit" name="submit" value="Daftar"/></td>  
-                </tr>  
-            </table>  
-        </form>
+<div class="registration-container">
+    <h1>Register</h1>
 
-    {% if messages %}  
-        <ul>   
-            {% for message in messages %}  
-                <li>{{ message }}</li>  
-                {% endfor %}  
-        </ul>   
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td></td>
+                <td><input class="btn register-btn" type="submit" name="submit" value="Daftar" /></td>
+            </tr>
+        </table>
+    </form>
+
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
     {% endif %}
+</div>
 
-</div>  
+<style>
+    /* CSS for styling the registration form */
+    .registration-container {
+        width: 500px;
+        height: 550px;
+        margin: 0 auto;
+        margin-top: 100px; 
+        padding: 20px;
+        background-color: #f7f7f7;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 40px;
+        margin-bottom: 20px;
+        color: #f2bedd;
+    }
+
+    .btn.register-btn {
+        background-color: #f2bedd;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn.register-btn:hover {
+        background-color: #f2bedd;
+    }
+
+    ul {
+        margin-top: 20px;
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        color: #ff0000;
+    }
+</style>
 
 {% endblock content %}
