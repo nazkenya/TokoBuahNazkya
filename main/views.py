@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from main.forms import ItemForm
@@ -13,7 +14,13 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 import datetime
 from django.http import HttpResponseRedirect
+from django.http import HttpResponseNotFound
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.core import serializers
+from django.views.decorators.http import require_POST
+from django.shortcuts import get_object_or_404
 
 @login_required(login_url='/login')
 def show_main(request):
@@ -122,3 +129,84 @@ def decrease_amount(request, id):
 def clear_item(request):
     Item.objects.all().delete()
     return HttpResponseRedirect(reverse('main:show_main')) 
+
+def get_product_json(request):
+    product_item = Item.objects.all()
+    return HttpResponse(serializers.serialize('json', product_item))
+
+
+@csrf_exempt
+def add_product_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        amount = request.POST.get("amount")
+        price = request.POST.get("price")
+        description = request.POST.get("description")
+        category = request.POST.get("category")
+        date_added = request.POST.get("date_added")
+
+        new_product = Item(name=name, amount=amount, price=price, description=description, category=category, date_added=date_added)
+        new_product.user = request.user
+        new_product.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
+
+
+# gabisa
+@csrf_exempt
+def edit_item_ajax(request, product_id):
+    if request.method == 'PUT':
+        try:
+            product = Item.objects.get(id=product_id)
+        except Item.DoesNotExist:
+            return HttpResponseNotFound()
+
+        product.name = request.POST.get("name")
+        product.amount = request.POST.get("amount")
+        product.price = request.POST.get("price")
+        product.description = request.POST.get("description")
+        product.category = request.POST.get("category")
+        product.date_added = request.POST.get("date_added")
+
+        product.save()
+
+        return HttpResponse("OK", status=200)
+
+    return HttpResponseNotFound()
+
+
+# @csrf_exempt
+# def delete_item_ajax(request, id):
+#     if request.method == 'POST':
+#         try:
+#             product = Item.objects.get(pk=id)
+#             product.delete()
+#             return JsonResponse({'message': 'Item deleted successfully'})
+#         except Item.DoesNotExist:
+#             return JsonResponse({'error': 'Item does not exist'}, status=404)
+#     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+
+def delete_item_ajax(request, id):
+    if request.method == "DELETE":
+        try:
+            # Replace this with your item deletion logic
+            # For example, if you have a Product model:
+            # product = Product.objects.get(pk=product_id)
+            # product.delete()
+            product = Item.objects.get(pk = id)
+            product.delete()
+            # Simulate a successful deletion for demonstration
+            return JsonResponse({'message': 'Item deleted successfully'})
+        except Exception as e:
+            # Handle errors and exceptions
+            return JsonResponse({'error': str(e)}, status=500)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+
+
+
+

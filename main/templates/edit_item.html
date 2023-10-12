@@ -1,8 +1,61 @@
 {% extends 'base.html' %}
 
-{% load static %}
-
 {% block content %}
+<style>
+    h1 {
+        font-size: 24px;
+        color: #f97ca3; 
+        text-align: center;
+    }
+
+    
+    form {
+        width: 80%;
+        margin: auto;
+        margin-top: 10%;
+        padding: 20px;
+        background-color: #F0F0F0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    table, th, td {
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    input[type="submit"] {
+        background-color: #F2BEDD;
+        color: #FFF;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #F2BEDD;
+    }
+</style>
 
 <h1>Edit Item</h1>
 
@@ -19,4 +72,4 @@
     </table>
 </form>
 
-{% endblock %}
+{% endblock content %}
